@@ -1,0 +1,32 @@
+# Add 'frontend' label for UI changes
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/**'
+          - 'components/**'
+          - 'public/**'
+          - 'styles/**'
+
+# Add 'documentation' label for markdown files
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - '**/*.txt'
+
+# Add 'ci-cd' label for GitHub workflow changes
+ci-cd:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+
+# Add 'config' label for package updates or config changes
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'package-lock.json'
+          - '*.config.js'
+          - '*.config.mjs'
+          - '*.config.ts'
+          
