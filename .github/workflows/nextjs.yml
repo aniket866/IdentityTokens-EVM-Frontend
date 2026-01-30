@@ -41,6 +41,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Check Formatting
+        run: npm run check-format
+
       - name: Build with Next.js
         run: npm run build
 
