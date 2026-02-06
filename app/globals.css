@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ---- Custom Fonts (Mapped from the Next.js localFont variables) ---- */
+  --font-atyp: var(--font-atyp), ui-sans-serif, system-ui;
+  --font-garamond: var(--font-garamond), ui-serif, Georgia;
+  --font-utsaha: var(--font-utsaha), cursive;
+
+  /* ---- Branding Colors ---- */
+  --color-brand-blue: #0553fd;
+  --color-brand-blue-hover: #0442cb;
+  --color-brand-green: #63fc9f;
+
+  /* ---- Layout Backgrounds ---- */
+  --color-landing-bg: #f4f2ff;
+  --color-app-bg: #18191d;
+  --color-dark-bg: #101115;
+
+  /* ---- Landing Page Animated Card Colors ---- */
+  --color-slate-white: #f4f4f4;
+  --color-corner-stroke: #cdd4e3;
+  --color-step-card: #18191d;
+  --color-step-line: #404348;
+  --color-step-active: #65fc9f;
+  --color-landhead-text: #3c315b;
+
+  /* ---- Dashboard and SideBar Colors ---- */
+  --color-dashboard-bg: #18191d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-landing-bg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* ---- Gradient Classes ---- */
+  .gradient-cta {
+    background: linear-gradient(179deg, #55e99d -9.25%, #fdfdff 99.21%);
+  }
 }

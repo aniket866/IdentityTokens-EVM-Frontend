@@ -1,0 +1,162 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "../lib/utils";
+
+const STEPS = [
+  {
+    id: 1,
+    title: "Mint",
+    image: "/assets/Step1.png",
+  },
+  {
+    id: 2,
+    title: "Get Endorsed!",
+    image: "/assets/Step2.png",
+  },
+  {
+    id: 3,
+    title: "Share",
+    image: "/assets/Step3.png",
+  },
+];
+
+export function HowItWorks() {
+  const [activeStep, setActiveStep] = useState(1);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev === 3 ? 1 : prev + 1));
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="mt-[2px] flex w-full flex-col items-center justify-center bg-landing-bg px-4 py-12 md:py-16">
+      {/* --- TITLE SECTION --- */}
+      <div className="mb-[7px] flex flex-col items-center text-center">
+        <div className="flex items-center gap-2 md:gap-4">
+          <span className="font-utsaha text-[36px] leading-tight text-landhead-text md:text-[50px] lg:text-[64px]">
+            Your
+          </span>
+          <div className="relative mt-1 h-[30px] w-[30px] md:mt-2 md:h-[45px] md:w-[44px]">
+            <Image
+              src="/assets/IsoLogo.svg"
+              alt="logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <span className="font-utsaha text-[36px] leading-tight text-landhead-text md:text-[50px] lg:text-[64px]">
+            Identity
+          </span>
+        </div>
+        <span className="font-utsaha text-[36px] leading-tight text-landhead-text md:text-[50px] lg:text-[64px]">
+          Simplified
+        </span>
+      </div>
+
+      {/* --- MAIN CARD CONTAINER --- */}
+      <div
+        className="relative flex w-full max-w-[1000px] flex-col overflow-hidden rounded-[28px] bg-step-card shadow-2xl transition-all duration-300 md:flex-row md:rounded-[40px]"
+        style={{ minHeight: "clamp(500px, 70vh, 600px)" }}
+      >
+        {/* --- STEPS SECTION --- */}
+        <div className="relative z-10 flex w-full flex-col justify-center p-4 pt-8 md:w-auto md:flex-1 md:py-10 md:pl-[60px]">
+          <div className="relative mx-auto flex w-full max-w-[350px] flex-row items-center justify-between md:mx-0 md:max-w-none md:flex-col md:items-stretch md:justify-start">
+            {/* === DESKTOP LINES (Vertical) === */}
+            <div className="absolute top-[30px] bottom-[30px] left-[29px] hidden w-[2px] bg-step-line md:block" />
+            <motion.div
+              className="absolute top-[30px] left-[29px] hidden w-[2px] origin-top bg-step-active md:block"
+              animate={{
+                height: `${((activeStep - 1) / (STEPS.length - 1)) * 100}%`,
+              }}
+              style={{ maxHeight: "calc(100% - 60px)" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
+
+            {/* === MOBILE LINES (Horizontal) === */}
+            <div className="absolute top-[16px] right-[16px] left-[16px] h-[2px] bg-step-line md:hidden" />
+            <motion.div
+              className="absolute top-[16px] left-[16px] h-[2px] origin-left bg-step-active md:hidden"
+              animate={{
+                width: `${((activeStep - 1) / (STEPS.length - 1)) * 100}%`,
+              }}
+              style={{ maxWidth: "calc(100% - 32px)" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
+
+            {/* === THE STEPS === */}
+            {STEPS.map((step, index) => {
+              const isActive = activeStep >= step.id;
+
+              return (
+                <div
+                  key={step.id}
+                  className={cn(
+                    "group relative z-10 flex cursor-pointer",
+                    "md:flex-row md:items-center",
+                    "flex-col items-center",
+                    index !== STEPS.length - 1 ? "md:mb-[90px]" : "md:mb-0"
+                  )}
+                  onClick={() => setActiveStep(step.id)}
+                >
+                  {/* NUMBER CIRCLE */}
+                  <div
+                    className={cn(
+                      "flex items-center justify-center rounded-full border-2 bg-step-card font-utsaha transition-all duration-300",
+                      "h-8 w-8 text-xs md:h-[60px] md:w-[60px] md:text-lg md:text-xl",
+                      isActive
+                        ? "border-step-active bg-step-active text-black"
+                        : "border-step-line bg-step-card text-white/50"
+                    )}
+                  >
+                    {step.id}
+                  </div>
+
+                  {/* TEXT LABEL */}
+                  <h3
+                    className={cn(
+                      "font-utsaha transition-colors duration-300",
+                      "md:mt-0 md:ml-[21px] md:text-[28px]",
+                      "mt-2 text-center text-xs",
+                      activeStep === step.id ? "text-white" : "text-white/40"
+                    )}
+                  >
+                    {step.title}
+                  </h3>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* --- IMAGE SECTION --- */}
+        <div className="mt-1 flex w-full flex-1 items-center justify-center p-0 pb-4 md:my-[40px] md:mr-[40px] md:w-auto md:p-0 md:pb-0">
+          <div className="relative h-[380px] w-full max-w-[280px] md:h-[520px] md:w-[450px] md:max-w-none">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                className="relative h-full w-full"
+              >
+                <Image
+                  src={STEPS[activeStep - 1].image}
+                  alt={STEPS[activeStep - 1].title}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
