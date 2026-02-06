@@ -1,6 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "@rainbow-me/rainbowkit/styles.css"; // Import RainbowKit styles
 import "./globals.css";
+import { Providers } from "./providers"; // Import the new Providers component
 
 const atypFont = localFont({
   src: [
@@ -56,7 +59,7 @@ export default function RootLayout({
       <body
         className={`${atypFont.variable} ${garamondFont.variable} ${utsahaFont.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

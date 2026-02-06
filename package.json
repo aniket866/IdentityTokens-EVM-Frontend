@@ -21,12 +21,19 @@
     ]
   },
   "dependencies": {
+    "@metamask/sdk": "^0.34.0",
+    "@rainbow-me/rainbowkit": "^2.1.6",
+    "@tanstack/react-query": "^5.90.20",
+    "@walletconnect/ethereum-provider": "^2.23.4",
+    "@walletconnect/modal": "^2.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.30.1",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "viem": "^2.7.6",
+    "wagmi": "^2.12.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
