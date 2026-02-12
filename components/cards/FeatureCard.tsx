@@ -12,7 +12,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   textColor = "text-white",
 }) => {
   return (
-    <div className="relative h-[450px] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl select-none md:h-[624px] md:w-[466px]">
+    <div className="relative h-[380px] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl select-none md:h-[624px] md:w-[466px]">
       {/* Background Image */}
       <Image
         src={bgImage}

@@ -6,16 +6,16 @@ const CTASection = () => {
   return (
     <section className="flex w-full justify-center bg-dark-bg px-4 py-10 md:py-20">
       {/* Gradient Box */}
-      <div className="gradient-cta relative flex h-auto min-h-[500px] w-full max-w-[1364px] flex-col items-center overflow-hidden rounded-[30px] text-center shadow-2xl md:h-[810px] md:rounded-[57px]">
+      <div className="gradient-cta relative flex h-auto min-h-[300px] w-full max-w-[1264px] flex-col items-center overflow-hidden rounded-[30px] text-center shadow-2xl md:h-[510px] md:rounded-[57px]">
         {/* --- Main Content Area --- */}
 
         {/* Headline */}
-        <h2 className="mx-auto mt-20 max-w-[90%] px-4 font-utsaha text-3xl tracking-tight text-black md:mt-[72px] md:max-w-[768px] md:px-0 md:text-6xl">
+        <h2 className="mx-auto mt-8 max-w-[90%] px-4 font-utsaha text-2xl tracking-tight text-black md:mt-[72px] md:max-w-[768px] md:px-0 md:text-6xl">
           By Stability Nexus, For Everyone
         </h2>
 
         {/* Subheadline */}
-        <p className="mt-8 px-4 font-utsaha text-lg text-black md:mt-[24px] md:text-2xl">
+        <p className="mt-5 px-4 font-utsaha text-lg text-black md:mt-[24px] md:text-2xl">
           Mint your Decentralized ID today
         </p>
 

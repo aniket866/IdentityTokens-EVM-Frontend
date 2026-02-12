@@ -43,7 +43,7 @@ export function HowItWorks() {
           </span>
           <div className="relative mt-1 h-[30px] w-[30px] md:mt-2 md:h-[45px] md:w-[44px]">
             <Image
-              src="/assets/IsoLogo.svg"
+              src="/assets/Isologo.svg"
               alt="logo"
               fill
               className="object-contain"
@@ -135,7 +135,7 @@ export function HowItWorks() {
 
         {/* --- IMAGE SECTION --- */}
         <div className="mt-1 flex w-full flex-1 items-center justify-center p-0 pb-4 md:my-[40px] md:mr-[40px] md:w-auto md:p-0 md:pb-0">
-          <div className="relative h-[380px] w-full max-w-[280px] md:h-[520px] md:w-[450px] md:max-w-none">
+          <div className="relative h-[380px] w-full max-w-[250px] md:h-[520px] md:w-[450px] md:max-w-none">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
