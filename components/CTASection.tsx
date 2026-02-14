@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 const CTASection = () => {
   return (
@@ -23,9 +24,11 @@ const CTASection = () => {
         <div className="mt-auto flex w-full flex-row items-center justify-between px-6 pb-8 md:px-20 md:pb-16">
           <div className="flex items-center gap-2 md:gap-3">
             {/* Logo Icon */}
-            <img
+            <Image
               src="/assets/logo.svg"
               alt="DIT Logo"
+              width={48}
+              height={48}
               className="h-6 w-6 object-contain md:h-12 md:w-12"
             />
             {/* Logo Text with Custom Font */}
@@ -42,9 +45,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/stability.svg"
                 alt="Stability Nexus"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -54,9 +59,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/GitHub.svg"
                 alt="GitHub"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -67,9 +74,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/Discord.svg"
                 alt="Discord"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -80,9 +89,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/LinkedIn.svg"
                 alt="LinkedIn"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
