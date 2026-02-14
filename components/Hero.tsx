@@ -1,3 +1,4 @@
+// components/Hero.tsx
 "use client";
 
 import Image from "next/image";
@@ -6,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "./Button";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import ToggleButton from "./ToggleButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const TYPING_SPEED = 150;
 const DELETING_SPEED = 100;
@@ -92,15 +94,84 @@ export function Hero() {
               dit
             </span>
           </Link>
-
           <div className="flex items-center gap-3 md:gap-4">
             <ToggleButton />
-            <Button
-              variant="primary"
-              className="px-4 py-2 text-sm font-semibold shadow-none md:px-6 md:py-3 md:text-base"
-            >
-              Connect Wallet
-            </Button>
+
+            <ConnectButton.Custom>
+              {({
+                account,
+                chain,
+                openAccountModal,
+                openChainModal,
+                openConnectModal,
+                authenticationStatus,
+                mounted,
+              }) => {
+                // Note: If your app doesn't use authentication, you
+                // can remove all 'authenticationStatus' checks
+                const ready = mounted && authenticationStatus !== "loading";
+                const connected =
+                  ready &&
+                  account &&
+                  chain &&
+                  (!authenticationStatus ||
+                    authenticationStatus === "authenticated");
+
+                return (
+                  <div
+                    {...(!ready && {
+                      "aria-hidden": true,
+                      style: {
+                        opacity: 0,
+                        pointerEvents: "none",
+                        userSelect: "none",
+                      },
+                    })}
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return (
+                          <Button
+                            onClick={openConnectModal}
+                            variant="primary"
+                            className="px-4 py-2 text-sm font-semibold shadow-none md:px-6 md:py-3 md:text-base"
+                          >
+                            Connect Wallet
+                          </Button>
+                        );
+                      }
+
+                      if (chain.unsupported) {
+                        return (
+                          <Button
+                            onClick={openChainModal}
+                            variant="secondary"
+                            className="bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-none hover:bg-red-600 md:px-6 md:py-3 md:text-base"
+                          >
+                            Wrong Network
+                          </Button>
+                        );
+                      }
+
+                      return (
+                        <div style={{ display: "flex", gap: 12 }}>
+                          <Button
+                            onClick={openAccountModal}
+                            variant="primary"
+                            className="px-4 py-2 text-sm font-semibold shadow-none md:px-6 md:py-3 md:text-base"
+                          >
+                            {account.displayName}
+                            {account.displayBalance
+                              ? ` (${account.displayBalance})`
+                              : ""}
+                          </Button>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
           </div>
         </div>
       </motion.div>
