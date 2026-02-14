@@ -1,14 +1,16 @@
-// app/layout.tsx
 import type { Metadata } from "next";
+import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
+
+import { Providers } from "./providers";
 import { atypFont, garamondFont, utsahaFont } from "../lib/fonts";
 
 export const metadata: Metadata = {
   title: "Decentralized Identity Token",
+  description: "Portable, Recoverable and Self-Sovereign Identity",
   icons: {
     icon: "/assets/logo.svg",
   },
-  description: "Portable, Recoverable and Self-Sovereign Identity",
 };
 
 export default function RootLayout({
