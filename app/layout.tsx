@@ -1,59 +1,23 @@
-// app/layout.tsx
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "@rainbow-me/rainbowkit/styles.css"; // Import RainbowKit styles
+import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
-import { Providers } from "./providers"; // Import the new Providers component
 
-const atypFont = localFont({
-  src: [
-    {
-      path: "../public/fonts/AtypDisplayTRIAL-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-atyp",
-  display: "swap",
-});
-
-const garamondFont = localFont({
-  src: [
-    {
-      path: "../public/fonts/Garamond.woff2",
-      weight: "400",
-      style: "italic",
-    },
-  ],
-  variable: "--font-garamond",
-  display: "swap",
-});
-
-const utsahaFont = localFont({
-  src: [
-    {
-      path: "../public/fonts/UtSaHaGumm.woff2",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-utsaha",
-  display: "swap",
-});
+import { Providers } from "./providers";
+import { atypFont, garamondFont, utsahaFont } from "../lib/fonts";
 
 export const metadata: Metadata = {
   title: "Decentralized Identity Token",
+  description: "Portable, Recoverable and Self-Sovereign Identity",
   icons: {
     icon: "/assets/logo.svg",
   },
-  description: "Portable, Recoverable and Self-Sovereign Identity",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
