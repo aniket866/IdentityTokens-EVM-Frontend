@@ -50,26 +50,64 @@ const CTASection = () => {
 
           {/* Social Icons mapped from constants */}
           <div className="flex items-center gap-3 md:gap-4">
-            <SocialIcon
-              href={SOCIAL_LINKS.website}
-              src="/stability.svg"
-              alt="Stability Nexus"
-            />
-            <SocialIcon
-              href={SOCIAL_LINKS.github}
-              src="/socials/GitHub.svg"
-              alt="GitHub"
-            />
-            <SocialIcon
-              href={SOCIAL_LINKS.discord}
-              src="/socials/Discord.svg"
-              alt="Discord"
-            />
-            <SocialIcon
-              href={SOCIAL_LINKS.linkedin}
-              src="/socials/LinkedIn.svg"
-              alt="LinkedIn"
-            />
+            <a
+              href="https://stability.nexus/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transform transition-transform hover:scale-110"
+            >
+              <Image
+                src="/stability.svg"
+                alt="Stability Nexus"
+                width={40}
+                height={40}
+                className="h-6 w-6 object-contain md:h-10 md:w-10"
+              />
+            </a>
+            <a
+              href="https://github.com/StabilityNexus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transform transition-transform hover:scale-110"
+            >
+              <Image
+                src="/socials/GitHub.svg"
+                alt="GitHub"
+                width={40}
+                height={40}
+                className="h-6 w-6 object-contain md:h-10 md:w-10"
+              />
+            </a>
+
+            <a
+              href="https://discord.gg/YzDKeEfWtS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transform transition-transform hover:scale-110"
+            >
+              <Image
+                src="/socials/Discord.svg"
+                alt="Discord"
+                width={40}
+                height={40}
+                className="h-6 w-6 object-contain md:h-10 md:w-10"
+              />
+            </a>
+
+            <a
+              href="https://linkedin.com/company/stability-nexus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transform transition-transform hover:scale-110"
+            >
+              <Image
+                src="/socials/LinkedIn.svg"
+                alt="LinkedIn"
+                width={40}
+                height={40}
+                className="h-6 w-6 object-contain md:h-10 md:w-10"
+              />
+            </a>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ export function Button({
   className,
   variant = "primary",
   size = "md",
+  type = "button",
   ...props
 }: ButtonProps) {
   const variants = {
@@ -28,6 +29,7 @@ export function Button({
 
   return (
     <button
+      type={type}
       className={cn(
         "inline-flex cursor-pointer items-center justify-center transition-colors focus:ring-2 focus:ring-brand-blue/20 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
         variants[variant],
