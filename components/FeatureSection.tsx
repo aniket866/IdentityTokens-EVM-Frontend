@@ -38,6 +38,7 @@ export const FeatureSection: React.FC = () => {
   ];
 
   const getScrollAmount = () => {
+    if (typeof window === "undefined") return 466 + 42;
     const isMobile = window.innerWidth < 768;
     return isMobile ? window.innerWidth * 0.85 + 16 : 466 + 42;
   };

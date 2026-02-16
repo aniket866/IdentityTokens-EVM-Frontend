@@ -59,9 +59,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/stability.svg"
                 alt="Stability Nexus"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -71,9 +73,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/GitHub.svg"
                 alt="GitHub"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -84,9 +88,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/Discord.svg"
                 alt="Discord"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
@@ -97,9 +103,11 @@ const CTASection = () => {
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
             >
-              <img
+              <Image
                 src="/socials/LinkedIn.svg"
                 alt="LinkedIn"
+                width={40}
+                height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
             </a>
