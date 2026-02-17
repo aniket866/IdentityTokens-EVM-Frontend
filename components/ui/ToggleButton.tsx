@@ -4,15 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ToggleButton() {
-  // Lazy initialize theme (NO useEffect state setting)
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-
-    const stored = localStorage.getItem("theme");
-    if (stored) return stored === "dark";
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const [ripples, setRipples] = useState<
     Array<{ id: number; x: number; y: number; isDark: boolean }>
@@ -20,11 +13,24 @@ function ToggleButton() {
 
   const rippleIdRef = useRef(0);
 
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = stored
+      ? stored === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    setIsDarkMode(prefersDark);
+    setMounted(true);
+  }, []);
+
   // Sync DOM + localStorage when theme changes
   useEffect(() => {
+    if (!mounted) return;
     document.documentElement.classList.toggle("dark", isDarkMode);
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+  }, [isDarkMode, mounted]);
+
+  if (!mounted) return null;
 
   const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -96,7 +102,7 @@ function ToggleButton() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 008.354-5.646z"
               />
             </motion.svg>
           )}
