@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 const CTASection = () => {
@@ -10,7 +10,7 @@ const CTASection = () => {
       <div className="gradient-cta relative flex h-auto min-h-[300px] w-full max-w-[1264px] flex-col items-center overflow-hidden rounded-[30px] text-center shadow-2xl md:h-[510px] md:rounded-[57px]">
         {/* --- Background Noise --- */}
         <div
-          className="absolute inset-0 opacity-30"
+          className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
             backgroundRepeat: "repeat",
@@ -50,8 +50,8 @@ const CTASection = () => {
 
           {/* Social Icons mapped from constants */}
           <div className="flex items-center gap-3 md:gap-4">
-            <a
-              href="https://stability.nexus/"
+            <Link
+              href={SOCIAL_LINKS.website}
               target="_blank"
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
@@ -63,9 +63,10 @@ const CTASection = () => {
                 height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
-            </a>
-            <a
-              href="https://github.com/StabilityNexus"
+            </Link>
+
+            <Link
+              href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
@@ -77,10 +78,10 @@ const CTASection = () => {
                 height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
-            </a>
+            </Link>
 
-            <a
-              href="https://discord.gg/YzDKeEfWtS"
+            <Link
+              href={SOCIAL_LINKS.discord}
               target="_blank"
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
@@ -92,10 +93,10 @@ const CTASection = () => {
                 height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
-            </a>
+            </Link>
 
-            <a
-              href="https://linkedin.com/company/stability-nexus"
+            <Link
+              href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="transform transition-transform hover:scale-110"
@@ -107,7 +108,7 @@ const CTASection = () => {
                 height={40}
                 className="h-6 w-6 object-contain md:h-10 md:w-10"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -125,7 +126,7 @@ const SocialIcon = ({
   src: string;
   alt: string;
 }) => (
-  <a
+  <Link
     href={href}
     target="_blank"
     rel="noopener noreferrer"
@@ -138,7 +139,7 @@ const SocialIcon = ({
       height={40}
       className="h-6 w-6 object-contain md:h-10 md:w-10"
     />
-  </a>
+  </Link>
 );
 
 export default CTASection;
