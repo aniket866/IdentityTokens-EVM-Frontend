@@ -25,13 +25,12 @@ Clean code and predictable workflow are mandatory.
 
 ## 🔎 Step 1: Find or Create an Issue
 
-* Check existing issues.
-* If creating a new one, include:
-
-  * Clear title
-  * Problem description
-  * Screenshots (if UI related)
-  * Expected behavior
+- Check existing issues.
+- If creating a new one, include:
+  - Clear title
+  - Problem description
+  - Screenshots (if UI related)
+  - Expected behavior
 
 Do not start coding yet.
 
@@ -83,10 +82,10 @@ git checkout -b feature/short-description
 
 Examples:
 
-* feature/add-wallet-ui
-* fix/navbar-overflow
-* refactor/web3-hooks
-* docs/update-readme
+- feature/add-wallet-ui
+- fix/navbar-overflow
+- refactor/web3-hooks
+- docs/update-readme
 
 ---
 
@@ -100,15 +99,15 @@ npm install
 
 This installs:
 
-* Next.js 16
-* React 19
-* Wagmi
-* RainbowKit
-* Viem
-* ESLint
-* Prettier
-* Husky
-* TailwindCSS
+- Next.js 16
+- React 19
+- Wagmi
+- RainbowKit
+- Viem
+- ESLint
+- Prettier
+- Husky
+- TailwindCSS
 
 ---
 
@@ -124,8 +123,8 @@ npm run prepare
 
 On commit, lint-staged will automatically:
 
-* Run eslint --fix on JS/TS files
-* Run prettier --write
+- Run eslint --fix on JS/TS files
+- Run prettier --write
 
 If commit fails, fix errors before retrying.
 
@@ -191,11 +190,11 @@ PRs failing lint/format checks may be rejected.
 
 ## 🧱 Architecture Rules
 
-* Use App Router properly (Next.js 16).
-* Keep components small and reusable.
-* Separate UI and Web3 logic.
-* Use custom hooks for contract interactions.
-* Avoid deeply nested components.
+- Use App Router properly (Next.js 16).
+- Keep components small and reusable.
+- Separate UI and Web3 logic.
+- Use custom hooks for contract interactions.
+- Avoid deeply nested components.
 
 ---
 
@@ -203,19 +202,19 @@ PRs failing lint/format checks may be rejected.
 
 Stack includes:
 
-* Wagmi
-* Viem
-* RainbowKit
-* MetaMask SDK
-* WalletConnect
-* React Query
+- Wagmi
+- Viem
+- RainbowKit
+- MetaMask SDK
+- WalletConnect
+- React Query
 
 Ensure:
 
-* Wallet errors are handled.
-* Loading states exist.
-* Transactions show feedback.
-* No private keys are exposed.
+- Wallet errors are handled.
+- Loading states exist.
+- Transactions show feedback.
+- No private keys are exposed.
 
 Test wallet connection manually before PR.
 
@@ -223,15 +222,15 @@ Test wallet connection manually before PR.
 
 ## 🎨 Styling Rules
 
-* Use TailwindCSS v4.
-* Avoid inline styles.
-* Use tailwind-merge when combining classes.
-* Maintain responsive design.
-* Keep animations clean (Framer Motion).
+- Use TailwindCSS v4.
+- Avoid inline styles.
+- Use tailwind-merge when combining classes.
+- Maintain responsive design.
+- Keep animations clean (Framer Motion).
 
 ---
 
-#  7️⃣ Commit Properly
+# 7️⃣ Commit Properly
 
 ```
 git add .
@@ -240,16 +239,16 @@ git commit -m "feat: short clear description"
 
 Examples:
 
-* feat: add rainbowkit wallet modal
-* fix: resolve layout shift issue
-* refactor: move web3 logic to hooks
-* style: improve button hover states
+- feat: add rainbowkit wallet modal
+- fix: resolve layout shift issue
+- refactor: move web3 logic to hooks
+- style: improve button hover states
 
 Avoid vague messages like "update".
 
 ---
 
-#  8️⃣ Sync With Upstream
+# 8️⃣ Sync With Upstream
 
 Before pushing:
 
@@ -262,7 +261,7 @@ Resolve conflicts locally.
 
 ---
 
-#  9️⃣ Push Your Branch
+# 9️⃣ Push Your Branch
 
 ```
 git push origin feature/short-description
@@ -270,14 +269,14 @@ git push origin feature/short-description
 
 ---
 
-#  🔟 Open a Pull Request
+# 🔟 Open a Pull Request
 
 When opening PR:
 
-* Link issue (Closes #number)
-* Explain what changed
-* Add screenshots for UI changes
-* Mention performance impact (if any)
+- Link issue (Closes #number)
+- Explain what changed
+- Add screenshots for UI changes
+- Mention performance impact (if any)
 
 PR must pass CI before review.
 
@@ -285,21 +284,21 @@ PR must pass CI before review.
 
 # ❌ What Causes Rejection
 
-* No assignment
-* Failing build
-* Lint errors
-* Poor code structure
-* Breaking wallet flows
-* No screenshots for UI changes
+- No assignment
+- Failing build
+- Lint errors
+- Poor code structure
+- Breaking wallet flows
+- No screenshots for UI changes
 
 ---
 
 # 🤝 Code of Conduct
 
-* Be professional
-* Be logical
-* Respect reviews
-* Accept feedback constructively
+- Be professional
+- Be logical
+- Respect reviews
+- Accept feedback constructively
 
 We build structured Web3 interfaces. Quality matters.
 
