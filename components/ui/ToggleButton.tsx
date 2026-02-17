@@ -4,8 +4,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ToggleButton() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+
+    const stored = localStorage.getItem("theme");
+    if (stored) return stored === "dark";
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
 
   const [ripples, setRipples] = useState<
     Array<{ id: number; x: number; y: number; isDark: boolean }>
@@ -13,24 +19,11 @@ function ToggleButton() {
 
   const rippleIdRef = useRef(0);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefersDark = stored
-      ? stored === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    setIsDarkMode(prefersDark);
-    setMounted(true);
-  }, []);
-
   // Sync DOM + localStorage when theme changes
   useEffect(() => {
-    if (!mounted) return;
     document.documentElement.classList.toggle("dark", isDarkMode);
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode, mounted]);
-
-  if (!mounted) return null;
+  }, [isDarkMode]);
 
   const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -109,7 +102,6 @@ function ToggleButton() {
         </AnimatePresence>
       </motion.button>
 
-      {/* Ripple Layer */}
       <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden">
         <AnimatePresence>
           {ripples.map((ripple) => (

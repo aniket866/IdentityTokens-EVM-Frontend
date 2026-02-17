@@ -4,6 +4,13 @@ const TYPING_SPEED = 150;
 const DELETING_SPEED = 100;
 const PAUSE_DURATION = 2000;
 
+export function useTypewriter(words: string[]) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
     let timer: NodeJS.Timeout;
 
     if (isDeleting) {
