@@ -65,7 +65,7 @@ export default function HowItWorks() {
             <motion.div
               className="absolute top-[30px] left-[29px] hidden w-[2px] origin-top bg-step-active md:block"
               animate={{
-                height: `${((activeStep - 1) / (totalSteps - 1)) * 100}%`,
+                height: `${totalSteps > 1 ? ((activeStep - 1) / (totalSteps - 1)) * 100 : 0}%`,
               }}
               style={{ maxHeight: "calc(100% - 60px)" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
