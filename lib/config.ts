@@ -8,18 +8,10 @@ import {
   base,
 } from "wagmi/chains";
 
-if (!process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID) {
-  console.warn(
-    "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not set. " +
-      "WalletConnect will not work. " +
-      "Get a free project ID at https://cloud.reown.com/"
-  );
-}
-
 export const config = getDefaultConfig({
   appName: "Decentralized Identity Token",
   projectId:
-    process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "YOUR_PROJECT_ID",
+    process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "YOUR_PROJECT_ID", // Get one at https://cloud.reown.com/ (formerly WalletConnect)
   chains: [mainnet, sepolia, polygon, optimism, arbitrum, base],
   ssr: true,
 });
