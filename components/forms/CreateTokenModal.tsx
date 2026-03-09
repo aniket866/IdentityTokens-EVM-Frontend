@@ -47,10 +47,11 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
           {/* Token Name */}
           <div className="flex flex-col gap-1.5">
             <label className="font-utsaha text-sm text-gray-300">
-              Token Name
+              Token Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
+              required
               placeholder="Enter the token name"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -63,16 +64,18 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
           {/* Token Type */}
           <div className="flex flex-col gap-1.5">
             <label className="font-utsaha text-sm text-gray-300">
-              Token Type
+              Token Type <span className="text-red-500">*</span>
             </label>
             <select
+              required
+              defaultValue=""
               className="w-full appearance-none rounded-lg px-4 py-2 font-utsaha text-white transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
                 backgroundColor: "#212734",
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select a Token Type
               </option>
               <option value="education">Education Credential</option>
@@ -86,10 +89,11 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
           {/* Token Value */}
           <div className="flex flex-col gap-1.5">
             <label className="font-utsaha text-sm text-gray-300">
-              Token Value
+              Token Value <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
+              required
               placeholder="Enter the token value"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
