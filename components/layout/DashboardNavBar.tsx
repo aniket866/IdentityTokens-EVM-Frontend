@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "../Button";
+import { Button } from "../ui/Button";
 import { FiBell, FiPlus } from "react-icons/fi";
 import { CreateTokenModal } from "../forms/CreateTokenModal";
 import { SearchBar } from "../dashboard/SearchBar";
