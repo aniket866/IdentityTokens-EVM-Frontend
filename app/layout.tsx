@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 
-import { Providers } from "./providers";
 import {
   atypFont,
   garamondFont,
   utsahaFont,
   comfortaaFont,
 } from "../lib/fonts";
+import { Providers } from "@/providers/providers";
 
 export const metadata: Metadata = {
   title: "Decentralized Identity Token",
