@@ -10,7 +10,8 @@ import {
 
 export const config = getDefaultConfig({
   appName: "Decentralized Identity Token",
-  projectId: "YOUR_PROJECT_ID", // Get one at https://cloud.reown.com/ (formerly WalletConnect)
+  projectId:
+    process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "YOUR_PROJECT_ID", // Get one at https://cloud.reown.com/ (formerly WalletConnect)
   chains: [mainnet, sepolia, polygon, optimism, arbitrum, base],
   ssr: true,
 });
