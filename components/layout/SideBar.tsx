@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,17 +25,14 @@ export function DashboardSidebar() {
 
   const isActive = (href: string) => pathname === href;
 
+  useEffect(() => {
+    const handleOpen = () => setIsMobileOpen(true);
+    document.addEventListener("openMobileSidebar", handleOpen);
+    return () => document.removeEventListener("openMobileSidebar", handleOpen);
+  }, []);
+
   return (
     <>
-      {/* ── Mobile hamburger button (visible only on small screens) ── */}
-      <button
-        onClick={() => setIsMobileOpen(true)}
-        className="fixed top-5 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-dashboard-bg lg:hidden"
-        aria-label="Open sidebar"
-      >
-        <FiMenu size={24} color="white" />
-      </button>
-
       {/* ── Mobile overlay ── */}
       {isMobileOpen && (
         <div
