@@ -11,6 +11,26 @@ export const metadata: Metadata = {
   icons: {
     icon: "/assets/logo.svg",
   },
+  keywords: [
+    "Decentralized Identity",
+    "Self-Sovereign Identity",
+    "Web3",
+    "Ethereum",
+    "Identity Token",
+    "Stability Nexus",
+  ],
+  openGraph: {
+    title: "Decentralized Identity Token",
+    description: "Portable, Recoverable and Self-Sovereign Identity",
+    url: "https://dit.stability.nexus/",
+    siteName: "Stability Nexus DIT",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    title: "Decentralized Identity Token",
+    description: "Portable, Recoverable and Self-Sovereign Identity",
+  },
 };
 
 export default function RootLayout({
