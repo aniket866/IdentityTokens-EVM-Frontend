@@ -22,11 +22,18 @@ function getArcColor(score: number): string {
 const TrustScore: React.FC<TrustScoreProps> = ({
   score = 98,
   flags = "None",
-  description = "Your On-Chain Reputation is excellent",
+  description,
   className = "",
 }) => {
   const clampedScore = Math.max(0, Math.min(100, score));
   const arcColor = getArcColor(clampedScore);
+
+  let defaultDesc = "poor";
+  if (clampedScore >= 70) defaultDesc = "excellent";
+  else if (clampedScore >= 40) defaultDesc = "average";
+
+  const finalDescription =
+    description || `Your On-Chain Reputation is ${defaultDesc}.`;
 
   // SVG arc math — semi-circle from left to right
   const radius = 38;
@@ -46,7 +53,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
               Trust Score
             </h3>
             <p className="font-utsaha text-sm leading-relaxed text-[#95959d] md:text-base">
-              {description}
+              {finalDescription}
             </p>
           </div>
 
