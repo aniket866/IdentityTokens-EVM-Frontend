@@ -2,8 +2,8 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "../Button";
-import { FiBell, FiPlus } from "react-icons/fi";
+import { Button } from "../ui/Button";
+import { FiBell, FiPlus, FiMenu } from "react-icons/fi";
 
 export function DashboardNavbar() {
   const pathname = usePathname();
@@ -18,11 +18,22 @@ export function DashboardNavbar() {
   };
 
   return (
-    <nav className="flex h-[72px] w-full shrink-0 items-center justify-between border-b border-white/5 bg-dashboard-bg pr-5 pl-16 lg:px-8">
-      {/* ── page title ── */}
-      <h1 className="font-utsaha text-2xl tracking-wide text-white">
-        {getPageTitle()}
-      </h1>
+    <nav className="flex h-[72px] w-full shrink-0 items-center justify-between border-b border-white/5 bg-dashboard-bg px-5 lg:px-8">
+      {/* ── Mobile Menu Toggle + Page title ── */}
+      <div className="flex items-center gap-4">
+        <button
+          onClick={() =>
+            document.dispatchEvent(new CustomEvent("openMobileSidebar"))
+          }
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-dashboard-bg lg:hidden"
+          aria-label="Open sidebar"
+        >
+          <FiMenu size={24} color="white" />
+        </button>
+        <h1 className="font-utsaha text-2xl tracking-wide text-white">
+          {getPageTitle()}
+        </h1>
+      </div>
 
       {/* ── Bell icon + Create Identity button ── */}
       <div className="flex items-center gap-3 md:gap-5">

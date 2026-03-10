@@ -21,11 +21,16 @@ const IDMetrics: React.FC<IDMetricsProps> = ({
 
   const handleCopyID = async () => {
     try {
-      await navigator.clipboard.writeText(walletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(walletAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        alert("Clipboard API not available. Please manually copy the ID.");
+      }
     } catch (err) {
       console.error("Failed to copy:", err);
+      alert("Failed to copy ID.");
     }
   };
 
@@ -42,8 +47,19 @@ const IDMetrics: React.FC<IDMetricsProps> = ({
       }
     } else {
       // Fallback: copy URL to clipboard
-      await navigator.clipboard.writeText(window.location.href);
-      alert("Profile link copied to clipboard!");
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(window.location.href);
+          alert("Profile link copied to clipboard!");
+        } else {
+          alert(
+            `Share and Clipboard APIs unavailable. URL: ${window.location.href}`
+          );
+        }
+      } catch (err) {
+        console.error("Failed to copy fallback URL:", err);
+        alert(`Failed to copy link. Profile URL: ${window.location.href}`);
+      }
     }
   };
 
@@ -52,7 +68,7 @@ const IDMetrics: React.FC<IDMetricsProps> = ({
       className={`flex w-full flex-col gap-6 overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6 backdrop-blur-[2.6px] lg:flex-row ${className}`}
     >
       {/* ID Card */}
-      <div className="flex flex-shrink-0 justify-center lg:w-[542px] lg:justify-start">
+      <div className="flex flex-shrink-0 justify-center lg:w-[340px] lg:justify-start">
         <IDCard
           name={name}
           age={age}
@@ -63,39 +79,39 @@ const IDMetrics: React.FC<IDMetricsProps> = ({
       </div>
 
       {/* Info and Actions */}
-      <div className="flex min-w-0 flex-1 flex-col justify-between gap-8 py-2 lg:gap-0">
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 py-2 lg:gap-2 lg:pl-4">
         {/* Info Section */}
-        <div className="flex flex-col gap-8 font-utsaha">
+        <div className="flex flex-col gap-4 font-utsaha lg:gap-3">
           {/* Decentralized ID */}
-          <div className="flex flex-col gap-2">
-            <h3 className="text-2xl leading-tight text-white opacity-90">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <h3 className="text-xl leading-tight text-white opacity-90 md:text-2xl">
               Decentralized Id
             </h3>
-            <p className="font-utsaha text-xl leading-relaxed break-all text-[#95959d]">
+            <p className="font-utsaha text-lg leading-relaxed break-all text-[#95959d] md:text-xl">
               {walletAddress}
             </p>
           </div>
 
           {/* Last Updated */}
-          <div className="flex flex-col gap-2">
-            <h3 className="text-2xl leading-tight text-white opacity-90">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <h3 className="text-xl leading-tight text-white opacity-90 md:text-2xl">
               Last Updated
             </h3>
-            <p className="font-utsaha text-xl leading-relaxed text-[#95959d]">
+            <p className="font-utsaha text-lg leading-relaxed text-[#95959d] md:text-xl">
               {lastUpdated}
             </p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-4 flex flex-wrap justify-end gap-6 lg:mt-0 lg:justify-start">
+        <div className="mt-1 flex flex-row flex-nowrap gap-3 lg:mt-0 lg:justify-start">
           {/* Copy ID Button */}
           <button
             onClick={handleCopyID}
-            className="group flex items-center gap-3 transition-all hover:opacity-80"
+            className="group flex items-center gap-1.5 transition-all hover:opacity-80"
           >
-            <IoCopyOutline className="h-6 w-6 text-white" />
-            <span className="font-utsaha text-xl text-white">
+            <IoCopyOutline className="h-4 w-4 text-white lg:h-3.5 lg:w-3.5" />
+            <span className="font-utsaha text-base whitespace-nowrap text-white md:text-lg lg:text-sm">
               {copied ? "Copied!" : "Copy ID"}
             </span>
           </button>
@@ -103,10 +119,10 @@ const IDMetrics: React.FC<IDMetricsProps> = ({
           {/* Share Profile Button */}
           <button
             onClick={handleShareProfile}
-            className="group flex items-center gap-3 transition-all hover:opacity-80"
+            className="group flex items-center gap-1.5 transition-all hover:opacity-80"
           >
-            <IoShareSocialOutline className="h-6 w-6 text-white" />
-            <span className="font-utsaha text-xl text-white">
+            <IoShareSocialOutline className="h-4 w-4 text-white lg:h-3.5 lg:w-3.5" />
+            <span className="font-utsaha text-base whitespace-nowrap text-white md:text-lg lg:text-sm">
               Share Profile
             </span>
           </button>

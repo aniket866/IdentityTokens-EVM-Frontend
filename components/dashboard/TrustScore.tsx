@@ -25,16 +25,17 @@ const TrustScore: React.FC<TrustScoreProps> = ({
   description = "Your On-Chain Reputation is excellent",
   className = "",
 }) => {
-  const arcColor = getArcColor(score);
+  const clampedScore = Math.max(0, Math.min(100, score));
+  const arcColor = getArcColor(clampedScore);
 
   // SVG arc math — semi-circle from left to right
   const radius = 38;
   const circumference = Math.PI * radius; // half-circle length
-  const progress = (score / 100) * circumference;
+  const progress = (clampedScore / 100) * circumference;
 
   return (
     <div
-      className={`flex h-full w-full flex-col justify-center overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6 md:p-8 ${className}`}
+      className={`flex w-full flex-col overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6 md:p-8 lg:h-full lg:justify-center ${className}`}
     >
       <div className="flex items-center gap-6 md:gap-8">
         {/* Left: Text Content */}
@@ -65,7 +66,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
           <div className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2 rounded-2xl border border-[#2a2b30] bg-[#0a0a0f] md:h-[180px] md:w-[150px]">
             {/* Percentage number */}
             <span className="font-utsaha text-2xl font-medium text-[#0553fd] md:text-3xl">
-              {score}%
+              {clampedScore}%
             </span>
 
             {/* Arc meter */}
