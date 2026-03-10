@@ -37,10 +37,16 @@ const IDCard: React.FC<IDCardProps> = ({
         <p className="mb-0.5 font-comfortaa text-[8px] font-normal text-black sm:text-[9px] md:mb-1 md:text-[9.5px] lg:mb-0.5 lg:text-[8px]">
           Name
         </p>
-        <p className="font-utsaha text-[20px] leading-tight text-white sm:text-[24px] md:text-[26.5px] lg:text-[20px]">
+        <p
+          className="max-w-full truncate font-utsaha text-[20px] leading-tight text-white sm:text-[24px] md:text-[26.5px] lg:text-[20px]"
+          title={name}
+        >
           {name}
         </p>
-        <p className="mt-0.5 font-comfortaa text-[7.5px] font-normal text-black sm:text-[8.5px] md:mt-1 md:text-[9.2px] lg:mt-0.5 lg:text-[7.5px]">
+        <p
+          className="mt-0.5 max-w-full truncate font-comfortaa text-[7.5px] font-normal text-black sm:text-[8.5px] md:mt-1 md:text-[9.2px] lg:mt-0.5 lg:text-[7.5px]"
+          title={walletAddress}
+        >
           {walletAddress}
         </p>
       </div>
