@@ -4,6 +4,11 @@ export const NAV_LINKS = [
   // Add navigation links here if needed in the future
 ];
 
+export const CONNECT_BTN_LABEL = {
+  connectWallet: "Connect Wallet",
+  wrongNetwork: "Wrong Network",
+};
+
 export const FEATURES_DATA = [
   {
     image: "/cards/FeatureCard1.png",

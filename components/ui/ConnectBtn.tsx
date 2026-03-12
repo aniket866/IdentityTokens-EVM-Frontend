@@ -1,3 +1,6 @@
+"use client";
+
+import { CONNECT_BTN_LABEL } from "@/lib/constants";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -25,7 +28,7 @@ function ConnectBtn() {
               whileTap={{ scale: 0.98 }}
               className="rounded-xl bg-emerald-500 px-4 py-2 font-bold text-white shadow-md transition-shadow duration-200 hover:shadow-emerald-300/40 dark:bg-emerald-400 dark:text-black dark:hover:shadow-emerald-400/30"
             >
-              Connect Wallet
+              {CONNECT_BTN_LABEL.connectWallet}
             </motion.button>
           );
         }
@@ -38,7 +41,7 @@ function ConnectBtn() {
               whileTap={{ scale: 0.98 }}
               className="rounded-xl bg-red-500 px-4 py-2 font-bold text-white shadow-md transition-shadow duration-200 hover:shadow-red-300/40 dark:bg-red-500 dark:text-white"
             >
-              Wrong Network
+              {CONNECT_BTN_LABEL.wrongNetwork}
             </motion.button>
           );
         }
@@ -54,7 +57,7 @@ function ConnectBtn() {
               {chain.hasIcon && chain.iconUrl && (
                 <Image
                   src={chain.iconUrl}
-                  alt={chain.name!}
+                  alt={chain.name ?? "Unknown chain"}
                   width={24}
                   height={24}
                   unoptimized
@@ -74,7 +77,7 @@ function ConnectBtn() {
               {chain.hasIcon && chain.iconUrl ? (
                 <Image
                   src={chain.iconUrl}
-                  alt={chain.name!}
+                  alt={chain.name ?? "Unknown chain"}
                   width={20}
                   height={20}
                   unoptimized
