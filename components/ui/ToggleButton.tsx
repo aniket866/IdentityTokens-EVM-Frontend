@@ -4,14 +4,22 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ToggleButton() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
+  const [mounted, setMounted] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
-    const stored = localStorage.getItem("theme");
-    if (stored) return stored === "dark";
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      setMounted(true);
+      const stored = localStorage.getItem("theme");
+      if (stored) {
+        setIsDarkMode(stored === "dark");
+      } else {
+        setIsDarkMode(
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        );
+      }
+    }, 0);
+  }, []);
 
   const [ripples, setRipples] = useState<
     Array<{ id: number; x: number; y: number; isDark: boolean }>
@@ -21,9 +29,11 @@ function ToggleButton() {
 
   // Sync DOM + localStorage when theme changes
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+    if (mounted) {
+      document.documentElement.classList.toggle("dark", isDarkMode);
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    }
+  }, [isDarkMode, mounted]);
 
   const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -60,7 +70,7 @@ function ToggleButton() {
         whileTap={{ scale: 0.8 }}
       >
         <AnimatePresence mode="wait" initial={false}>
-          {isDarkMode ? (
+          {!mounted ? null : isDarkMode ? (
             <motion.svg
               key="sun"
               className="h-5 w-5 text-yellow-500"

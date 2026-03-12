@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import { Comfortaa } from "next/font/google";
 
 export const atypFont = localFont({
   src: [
@@ -33,5 +34,12 @@ export const utsahaFont = localFont({
     },
   ],
   variable: "--font-utsaha",
+  display: "swap",
+});
+
+export const comfortaaFont = Comfortaa({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-comfortaa",
   display: "swap",
 });
