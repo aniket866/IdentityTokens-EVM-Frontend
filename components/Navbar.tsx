@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useScrollHiddenNav } from "@/hooks/useScrollHiddenNav";
 import ToggleButton from "@/components/ui/ToggleButton";
+import ConnectBtn from "./ui/ConnectBtn";
 
 export default function Navbar() {
   const isVisible = useScrollHiddenNav();
@@ -39,7 +39,7 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-3 md:gap-4">
           <ToggleButton />
-          <ConnectButton />
+          <ConnectBtn />
         </div>
       </div>
     </motion.div>
