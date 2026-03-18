@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { X, ChevronDown } from "lucide-react";
 
@@ -9,6 +9,15 @@ interface TokenFormProps {
   onClose: () => void;
   tokenName?: string;
   tokenId?: string;
+  onEdit?: (data: {
+    tokenId: string;
+    tokenName: string;
+    tokenType: string;
+    tokenValue: string;
+    aboutToken: string;
+    recoveryAddress: string;
+  }) => void;
+  onBurn?: (tokenId: string) => void;
 }
 
 export function TokenForm({
@@ -16,8 +25,63 @@ export function TokenForm({
   onClose,
   tokenName = "Token Name",
   tokenId = "tk-0x0000000000000000",
+  onEdit,
+  onBurn,
 }: TokenFormProps) {
+  const [formData, setFormData] = useState({
+    tokenName: tokenName,
+    tokenType: "",
+    tokenValue: "",
+    aboutToken: "",
+    recoveryAddress: "",
+  });
+
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof typeof formData, string>>
+  >({});
+
   if (!isOpen) return null;
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof typeof formData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Partial<Record<keyof typeof formData, string>> = {};
+    if (!formData.tokenName.trim())
+      newErrors.tokenName = "Token Name is required";
+    if (!formData.tokenType.trim())
+      newErrors.tokenType = "Token Type is required";
+    if (!formData.tokenValue.trim())
+      newErrors.tokenValue = "Token Value is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    if (onEdit) {
+      onEdit({ tokenId, ...formData });
+    }
+    setErrors({});
+    onClose();
+  };
+
+  const handleBurn = () => {
+    if (onBurn) {
+      onBurn(tokenId);
+    }
+    onClose();
+  };
 
   return (
     <div
@@ -56,10 +120,7 @@ export function TokenForm({
         </div>
 
         {/* ── Form body ── */}
-        <form
-          className="flex flex-col gap-4 px-6 py-5"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-4 px-6 py-5" onSubmit={handleSubmit}>
           {/* Token Name */}
           <div className="flex flex-col gap-1.5">
             <label className="font-utsaha text-sm text-gray-300">
@@ -67,7 +128,9 @@ export function TokenForm({
             </label>
             <input
               type="text"
-              defaultValue={tokenName}
+              name="tokenName"
+              value={formData.tokenName}
+              onChange={handleChange}
               placeholder="Enter the token name"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -75,6 +138,9 @@ export function TokenForm({
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.tokenName && (
+              <span className="text-xs text-red-500">{errors.tokenName}</span>
+            )}
           </div>
 
           {/* Token Type */}
@@ -83,19 +149,27 @@ export function TokenForm({
               Token Type <span className="text-red-500">*</span>
             </label>
             <select
+              name="tokenType"
+              value={formData.tokenType}
+              onChange={handleChange}
               className="w-full appearance-none rounded-lg px-4 py-2 font-utsaha text-white transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
                 backgroundColor: "#212734",
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              <option value="">Select token type</option>
+              <option value="" disabled>
+                Select token type
+              </option>
               <option value="education">Education Credential</option>
               <option value="professional">Professional Skill</option>
               <option value="achievement">Achievement</option>
               <option value="identity">Identity Document</option>
               <option value="socials">Socials</option>
             </select>
+            {errors.tokenType && (
+              <span className="text-xs text-red-500">{errors.tokenType}</span>
+            )}
           </div>
 
           {/* Token Value */}
@@ -105,6 +179,9 @@ export function TokenForm({
             </label>
             <input
               type="text"
+              name="tokenValue"
+              value={formData.tokenValue}
+              onChange={handleChange}
               placeholder="Enter the token value"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -112,6 +189,9 @@ export function TokenForm({
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.tokenValue && (
+              <span className="text-xs text-red-500">{errors.tokenValue}</span>
+            )}
           </div>
 
           {/* About Token */}
@@ -121,6 +201,9 @@ export function TokenForm({
             </label>
             <input
               type="text"
+              name="aboutToken"
+              value={formData.aboutToken}
+              onChange={handleChange}
               placeholder="Anything About Token"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -137,6 +220,9 @@ export function TokenForm({
             </label>
             <input
               type="text"
+              name="recoveryAddress"
+              value={formData.recoveryAddress}
+              onChange={handleChange}
               placeholder="Enter the wallet address"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -151,6 +237,7 @@ export function TokenForm({
             {/* Burn */}
             <button
               type="button"
+              onClick={handleBurn}
               className="flex flex-1 items-center justify-center gap-2.5 rounded-lg py-2.5 font-utsaha text-base text-black transition-all hover:opacity-90 active:scale-[0.98]"
               style={{ backgroundColor: "#FF0000" }}
             >
