@@ -1,15 +1,78 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { X } from "lucide-react";
+import { z } from "zod";
+
+export const tokenSchema = z.object({
+  name: z.string().min(1, "Token Name is required"),
+  type: z.string().min(1, "Token Type is required"),
+  value: z.string().min(1, "Token Value is required"),
+  about: z.string().optional(),
+  recovery: z.string().optional(),
+});
+
+type TokenState = z.infer<typeof tokenSchema>;
 
 interface CreateTokenModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onCreateToken?: (token: TokenState) => void;
 }
 
-export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
+export function CreateTokenModal({
+  isOpen,
+  onClose,
+  onCreateToken,
+}: CreateTokenModalProps) {
+  const [tokenState, setTokenState] = useState<TokenState>({
+    name: "",
+    type: "",
+    value: "",
+    about: "",
+    recovery: "",
+  });
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof TokenState, string>>
+  >({});
+
   if (!isOpen) return null;
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setTokenState((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof TokenState]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = tokenSchema.safeParse(tokenState);
+    if (!result.success) {
+      const newErrors: Partial<Record<keyof TokenState, string>> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          newErrors[issue.path[0] as keyof TokenState] = issue.message;
+        }
+      });
+      setErrors(newErrors);
+      return;
+    }
+
+    if (onCreateToken) {
+      onCreateToken(result.data);
+    }
+
+    // Clear state
+    setTokenState({ name: "", type: "", value: "", about: "", recovery: "" });
+    setErrors({});
+    onClose();
+  };
 
   return (
     <div
@@ -40,10 +103,7 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
         </div>
 
         {/* Form */}
-        <form
-          className="flex flex-col gap-4"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           {/* Token Name */}
           <div className="flex flex-col gap-1.5">
             <label className="font-utsaha text-sm text-gray-300">
@@ -51,7 +111,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
             </label>
             <input
               type="text"
-              required
+              name="name"
+              value={tokenState.name}
+              onChange={handleChange}
               placeholder="Enter the token name"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -59,6 +121,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.name && (
+              <span className="text-xs text-red-500">{errors.name}</span>
+            )}
           </div>
 
           {/* Token Type */}
@@ -67,8 +132,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
               Token Type <span className="text-red-500">*</span>
             </label>
             <select
-              required
-              defaultValue=""
+              name="type"
+              value={tokenState.type}
+              onChange={handleChange}
               className="w-full appearance-none rounded-lg px-4 py-2 font-utsaha text-white transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
                 backgroundColor: "#212734",
@@ -84,6 +150,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
               <option value="identity">Identity Document</option>
               <option value="socials">Socials</option>
             </select>
+            {errors.type && (
+              <span className="text-xs text-red-500">{errors.type}</span>
+            )}
           </div>
 
           {/* Token Value */}
@@ -93,7 +162,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
             </label>
             <input
               type="text"
-              required
+              name="value"
+              value={tokenState.value}
+              onChange={handleChange}
               placeholder="Enter the token value"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -101,6 +172,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.value && (
+              <span className="text-xs text-red-500">{errors.value}</span>
+            )}
           </div>
 
           {/* About Token */}
@@ -109,6 +183,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
               About Token
             </label>
             <textarea
+              name="about"
+              value={tokenState.about}
+              onChange={handleChange}
               rows={3}
               placeholder="Describe this identity token…"
               className="w-full resize-none rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
@@ -117,6 +194,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.about && (
+              <span className="text-xs text-red-500">{errors.about}</span>
+            )}
           </div>
 
           {/* Recovery Wallet Address */}
@@ -126,6 +206,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
             </label>
             <input
               type="text"
+              name="recovery"
+              value={tokenState.recovery}
+              onChange={handleChange}
               placeholder="Enter the recovery wallet address"
               className="w-full rounded-lg px-4 py-2 font-utsaha text-white placeholder-gray-500 transition-all focus:ring-1 focus:ring-[#0553FD] focus:outline-none"
               style={{
@@ -133,6 +216,9 @@ export function CreateTokenModal({ isOpen, onClose }: CreateTokenModalProps) {
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             />
+            {errors.recovery && (
+              <span className="text-xs text-red-500">{errors.recovery}</span>
+            )}
           </div>
 
           {/* Submit */}
