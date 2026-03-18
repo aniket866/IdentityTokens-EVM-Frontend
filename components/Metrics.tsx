@@ -27,7 +27,7 @@ const Metrics: React.FC<MetricsProps> = ({
 }) => {
   return (
     <div
-      className={`flex w-full flex-col items-start gap-6 rounded-2xl border border-card-border bg-card-bg p-6 backdrop-blur-[2.6px] md:flex-row md:items-center md:gap-[134px] ${className}`}
+      className={`flex w-full flex-col items-start gap-6 rounded-2xl border border-card-border bg-card-bg p-6 backdrop-blur-[2.6px] md:flex-row md:flex-wrap md:items-center md:gap-6 ${className}`}
     >
       {/* Total Endorsements */}
       <div className="flex min-w-[120px] flex-col gap-2 font-utsaha">

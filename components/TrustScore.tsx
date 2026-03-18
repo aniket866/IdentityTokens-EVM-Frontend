@@ -13,6 +13,8 @@ const TrustScore: React.FC<TrustScoreProps> = ({
   flags = "None",
   className = "",
 }) => {
+  const clampedScore = Math.max(0, Math.min(100, score));
+
   // Calculate the arc path for the score meter
   const getArcPath = (percentage: number) => {
     const radius = 45;
@@ -41,7 +43,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
     return "#ef4444"; // red
   };
 
-  const scoreColor = getScoreColor(score);
+  const scoreColor = getScoreColor(clampedScore);
 
   return (
     <div
@@ -69,7 +71,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
         <div className="flex h-[128px] w-[111px] flex-col items-center gap-0.5 rounded-[20px] border border-card-border bg-card-bg px-1 py-6 backdrop-blur-[2.6px]">
           {/* Score Percentage */}
           <p className="font-utsaha text-2xl leading-relaxed text-brand-blue">
-            {score}%
+            {clampedScore}%
           </p>
 
           {/* Meter Arc */}
@@ -92,7 +94,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
               />
               {/* Score arc (colored) */}
               <path
-                d={getArcPath(score)}
+                d={getArcPath(clampedScore)}
                 stroke={scoreColor}
                 strokeWidth="8"
                 strokeLinecap="round"
