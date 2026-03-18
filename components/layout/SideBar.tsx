@@ -95,15 +95,6 @@ export function DashboardSidebar() {
               />
             </Link>
           )}
-
-          {/* ── Mobile close button ── */}
-          <button
-            onClick={() => setIsMobileOpen(false)}
-            aria-label="Close sidebar"
-            className="flex items-center justify-center p-2 text-white/50 hover:text-white lg:hidden"
-          >
-            <span className="text-2xl leading-none">&times;</span>
-          </button>
         </div>
 
         {/* ─── Navigation links ─── */}

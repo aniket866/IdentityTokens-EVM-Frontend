@@ -82,7 +82,10 @@ const TrustScore: React.FC<TrustScoreProps> = ({
                 viewBox="0 0 100 55"
                 className="h-full w-full"
                 style={{ overflow: "visible" }}
+                role="img"
+                aria-labelledby="trustscore-title"
               >
+                <title id="trustscore-title">Trust score gauge</title>
                 {/* Background arc (dark track) */}
                 <path
                   d="M 12 50 A 38 38 0 0 1 88 50"
