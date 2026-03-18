@@ -49,6 +49,7 @@ export function DashboardNavbar() {
                 ? "h-10 w-10 p-0"
                 : "gap-2.5 px-4 py-2.5 text-base md:px-5 md:text-xl"
             }`}
+            aria-label={isDiscover ? "Create Identity" : undefined}
             onClick={() => {
               if (pathname === "/home") setIsCreateModalOpen(true);
             }}
