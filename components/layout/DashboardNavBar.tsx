@@ -4,12 +4,21 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/Button";
 import { FiBell, FiPlus } from "react-icons/fi";
-import { CreateTokenModal } from "../forms/CreateTokenModal";
+import { CreateTokenModal, tokenSchema } from "../forms/CreateTokenModal";
 import { SearchBar } from "../dashboard/SearchBar";
+import { z } from "zod";
+
+type TokenState = z.infer<typeof tokenSchema>;
 
 export function DashboardNavbar() {
   const pathname = usePathname();
   const [isModalOpen, setIsCreateModalOpen] = React.useState(false);
+
+  const handleCreateToken = async (data: TokenState) => {
+    console.log("Creating token:", data);
+    // API/logic here
+    setIsCreateModalOpen(false);
+  };
 
   const isDiscover = pathname === "/discover";
 
@@ -67,6 +76,7 @@ export function DashboardNavbar() {
       <CreateTokenModal
         isOpen={isModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
+        onCreateToken={handleCreateToken}
       />
     </>
   );

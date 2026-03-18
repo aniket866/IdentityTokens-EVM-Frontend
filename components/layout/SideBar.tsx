@@ -26,7 +26,14 @@ export function DashboardSidebar() {
   const isActive = (href: string) => pathname === href;
 
   useEffect(() => {
-    const handleOpen = () => setIsMobileOpen((prev) => !prev);
+    const handleOpen = (e: Event) => {
+      const customEvent = e as CustomEvent<{ open?: boolean }>;
+      if (customEvent.detail && typeof customEvent.detail.open === "boolean") {
+        setIsMobileOpen(customEvent.detail.open);
+      } else {
+        setIsMobileOpen(true);
+      }
+    };
     document.addEventListener("openMobileSidebar", handleOpen);
     return () => document.removeEventListener("openMobileSidebar", handleOpen);
   }, []);
