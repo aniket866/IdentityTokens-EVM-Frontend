@@ -26,18 +26,42 @@ export function DashboardSidebar() {
   const isActive = (href: string) => pathname === href;
 
   useEffect(() => {
-    const handleOpen = () => setIsMobileOpen(true);
+    const handleOpen = () => setIsMobileOpen((prev) => !prev);
     document.addEventListener("openMobileSidebar", handleOpen);
     return () => document.removeEventListener("openMobileSidebar", handleOpen);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMobileOpen) {
+        setIsMobileOpen(false);
+      }
+    };
+    if (isMobileOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileOpen]);
+
   return (
     <>
+      {/* ── Mobile Hamburger (if placed inside SideBar) ── */}
+      <button
+        type="button"
+        aria-expanded={isMobileOpen}
+        aria-label="Toggle mobile menu"
+        className="fixed top-5 left-5 z-40 flex items-center justify-center text-white lg:hidden"
+        onClick={() => setIsMobileOpen((prev) => !prev)}
+      >
+        <FiMenu size={24} />
+      </button>
+
       {/* ── Mobile overlay ── */}
       {isMobileOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMobileOpen(false)}
+          aria-hidden="true"
         />
       )}
 
@@ -71,6 +95,15 @@ export function DashboardSidebar() {
               />
             </Link>
           )}
+
+          {/* ── Mobile close button ── */}
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            aria-label="Close sidebar"
+            className="flex items-center justify-center p-2 text-white/50 hover:text-white lg:hidden"
+          >
+            <span className="text-2xl leading-none">&times;</span>
+          </button>
         </div>
 
         {/* ─── Navigation links ─── */}
