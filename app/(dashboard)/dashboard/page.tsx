@@ -33,7 +33,7 @@ const historyTokens = [
 
 const DashboardPage = () => {
   return (
-    <div className="flex min-h-screen flex-col gap-8 bg-app-bg pb-12">
+    <div className="flex h-full flex-col gap-8 bg-app-bg pb-12">
       <DashboardMetrics
         name="Khushal Agarwal"
         age={20}

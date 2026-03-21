@@ -20,25 +20,35 @@ function getArcColor(score: number): string {
 }
 
 const TrustScore: React.FC<TrustScoreProps> = ({
-  score = 98,
+  score,
   flags = "None",
   description,
   className = "",
 }) => {
-  const clampedScore = Math.max(0, Math.min(100, score));
-  const arcColor = getArcColor(clampedScore);
+  const clampedScore = Number.isFinite(score)
+    ? Math.max(0, Math.min(100, score!))
+    : undefined;
+  const arcColor =
+    clampedScore !== undefined ? getArcColor(clampedScore) : "#333333";
 
-  let defaultDesc = "poor";
-  if (clampedScore >= 70) defaultDesc = "excellent";
-  else if (clampedScore >= 40) defaultDesc = "average";
+  let defaultDesc = "N/A";
+  if (clampedScore !== undefined) {
+    if (clampedScore >= 70) defaultDesc = "excellent";
+    else if (clampedScore >= 40) defaultDesc = "average";
+    else defaultDesc = "poor";
+  }
 
   const finalDescription =
-    description || `Your On-Chain Reputation is ${defaultDesc}.`;
+    description ||
+    (clampedScore !== undefined
+      ? `Your On-Chain Reputation is ${defaultDesc}.`
+      : "Your On-Chain Reputation is N/A.");
 
   // SVG arc math — semi-circle from left to right
   const radius = 38;
   const circumference = Math.PI * radius; // half-circle length
-  const progress = (clampedScore / 100) * circumference;
+  const progress =
+    clampedScore !== undefined ? (clampedScore / 100) * circumference : 0;
 
   return (
     <div
@@ -73,7 +83,7 @@ const TrustScore: React.FC<TrustScoreProps> = ({
           <div className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2 rounded-2xl border border-[#2a2b30] bg-[#0a0a0f] md:h-[180px] md:w-[150px]">
             {/* Percentage number */}
             <span className="font-utsaha text-2xl font-medium text-[#0553fd] md:text-3xl">
-              {clampedScore}%
+              {clampedScore !== undefined ? `${clampedScore}%` : "N/A"}
             </span>
 
             {/* Arc meter */}
@@ -82,7 +92,10 @@ const TrustScore: React.FC<TrustScoreProps> = ({
                 viewBox="0 0 100 55"
                 className="h-full w-full"
                 style={{ overflow: "visible" }}
+                role="img"
+                aria-labelledby="trustscore-title"
               >
+                <title id="trustscore-title">Trust score gauge</title>
                 {/* Background arc (dark track) */}
                 <path
                   d="M 12 50 A 38 38 0 0 1 88 50"

@@ -14,7 +14,22 @@ export interface IDCardProps {
   walletAddress?: string;
   endorsers?: number;
   className?: string;
+  telegramUrl?: string;
+  linkedinUrl?: string;
+  githubUrl?: string;
+  discordUrl?: string;
 }
+
+const getRankFromEndorsers = (
+  count: number
+): "bronze" | "silver" | "gold" | "platinum" | "diamond" | "champion" => {
+  if (count < 10) return "bronze";
+  if (count < 50) return "silver";
+  if (count < 100) return "gold";
+  if (count < 500) return "platinum";
+  if (count < 1000) return "diamond";
+  return "champion";
+};
 
 const IDCard: React.FC<IDCardProps> = ({
   name = "Khushal Agarwal",
@@ -23,6 +38,10 @@ const IDCard: React.FC<IDCardProps> = ({
   walletAddress = "0x9cea81B9D2E900..",
   endorsers = 128,
   className = "",
+  telegramUrl,
+  linkedinUrl,
+  githubUrl,
+  discordUrl,
 }) => {
   return (
     <div
@@ -74,7 +93,7 @@ const IDCard: React.FC<IDCardProps> = ({
       {/* Rank Badge */}
       <div className="absolute top-[50px] right-[35px] flex flex-col items-center sm:top-[58px] sm:right-[42px] md:top-[64px] md:right-[51px] lg:top-[44px] lg:right-[30px]">
         <Badge
-          rank="diamond"
+          rank={getRankFromEndorsers(endorsers)}
           size={48}
           className="sm:h-[52px] sm:w-[52px] md:h-[57px] md:w-[57px] lg:h-[44px] lg:w-[44px]"
         />
@@ -90,34 +109,78 @@ const IDCard: React.FC<IDCardProps> = ({
       <div className="absolute right-[28px] bottom-[20px] left-[28px] flex items-center justify-between sm:right-[32px] sm:bottom-[24px] sm:left-[32px] md:right-[37px] md:bottom-[27px] md:left-[37px] lg:right-[22px] lg:bottom-[18px] lg:left-[22px]">
         {/* Social Icons */}
         <div className="flex gap-2.5 sm:gap-3 md:gap-4 lg:gap-2.5">
-          <a
-            href="#"
-            aria-label="Telegram"
-            className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
-          >
-            <FaTelegramPlane className="h-full w-full" />
-          </a>
-          <a
-            href="#"
-            aria-label="LinkedIn"
-            className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
-          >
-            <FaLinkedinIn className="h-full w-full" />
-          </a>
-          <a
-            href="#"
-            aria-label="GitHub"
-            className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
-          >
-            <FaGithub className="h-full w-full" />
-          </a>
-          <a
-            href="#"
-            aria-label="Discord"
-            className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
-          >
-            <FaDiscord className="h-full w-full" />
-          </a>
+          {telegramUrl ? (
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram profile"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaTelegramPlane className="h-full w-full" />
+            </a>
+          ) : (
+            <span
+              aria-hidden="true"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaTelegramPlane className="h-full w-full" />
+            </span>
+          )}
+          {linkedinUrl ? (
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaLinkedinIn className="h-full w-full" />
+            </a>
+          ) : (
+            <span
+              aria-hidden="true"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaLinkedinIn className="h-full w-full" />
+            </span>
+          )}
+          {githubUrl ? (
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaGithub className="h-full w-full" />
+            </a>
+          ) : (
+            <span
+              aria-hidden="true"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaGithub className="h-full w-full" />
+            </span>
+          )}
+          {discordUrl ? (
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Discord profile"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaDiscord className="h-full w-full" />
+            </a>
+          ) : (
+            <span
+              aria-hidden="true"
+              className="flex h-5 w-5 items-center justify-center text-black transition-colors hover:text-gray-700 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6 lg:h-4.5 lg:w-4.5"
+            >
+              <FaDiscord className="h-full w-full" />
+            </span>
+          )}
         </div>
 
         {/* DIT Logo */}
